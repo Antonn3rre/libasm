@@ -1,6 +1,7 @@
 NAME = libasm
 
 NAME_LIB = libasm.a
+BONUS_NAME_LIB = libasm.a
 
 SRCS = ft_strcmp.s \
 	   ft_strcpy.s \
@@ -11,6 +12,10 @@ SRCS = ft_strcmp.s \
 
 OBJS = $(SRCS:.s=.o)
 
+BONUS_SRCS = ft_atoi_base.s
+
+BONUS_OBJS = $(BONUS_SRCS:.s=.o)
+
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
@@ -19,6 +24,9 @@ all: $(NAME)
 $(NAME): $(NAME_LIB)
 	$(CC) $(CFLAGS) main.c $(NAME_LIB) -o $(NAME)
 
+bonus: $(BONUS_NAME_LIB)
+	$(CC) $(CFLAGS) main.c $(BONUS_NAME_LIB) -o $(NAME)
+	
 NASM = nasm
 
 NASMFLAGS = -f elf64
@@ -29,11 +37,14 @@ NASMFLAGS = -f elf64
 $(NAME_LIB): $(OBJS)
 	ar rcs $(NAME_LIB) $(OBJS)
 
+$(BONUS_NAME_LIB): $(OBJS) $(BONUS_OBJS)
+	ar rcs $(NAME_LIB) $(OBJS) $(BONUS_OBJS)
+
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(BONUS_OBJS)
 
 fclean: clean
-	rm -f $(NAME) $(NAME_LIB)
+	rm -f $(NAME) $(NAME_LIB) $(BONUS_NAME_LIB)
 
 re: fclean all
 
