@@ -5,7 +5,9 @@ NAME_LIB = libasm.a
 SRCS = ft_strcmp.s \
 	   ft_strcpy.s \
 	   ft_strlen.s \
-	   ft_write.s
+	   ft_write.s \
+	   ft_read.s \
+	   ft_strdup.s
 
 OBJS = $(SRCS:.s=.o)
 
@@ -15,7 +17,6 @@ CFLAGS = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(NAME_LIB)
-	echo "Commande NAME"
 	$(CC) $(CFLAGS) main.c $(NAME_LIB) -o $(NAME)
 
 NASM = nasm
@@ -23,11 +24,9 @@ NASM = nasm
 NASMFLAGS = -f elf64
 
 %.o: %.s
-	echo "Commande .o .s"
 	$(NASM) $(NASMFLAGS) $< -o $@
 
 $(NAME_LIB): $(OBJS)
-	echo "Commande LIB"
 	ar rcs $(NAME_LIB) $(OBJS)
 
 clean:

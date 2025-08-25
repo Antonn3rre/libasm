@@ -1,26 +1,22 @@
-global ft_write
+global ft_read
 extern __errno_location
 
 section .text
-ft_write:
-	mov rax, 1 ; syscall 1 pour write
+ft_read:
+	mov rax, 0 ; syscall 0 pour read
 	syscall
-	test rax, rax ; -> permet de maj les flags, si rax == 0 -> zero flag = 1 , rax < 0 -> sign flag = 1, rax > 0 -> rien
-	js error ; jump if sign flag is set
+	test rax, rax
+	js error ; jump if carry flag is set
 
-	ret ; return si ok
+	; return value of read already in rax
+	ret
 
 error:
 	mov r8, rax ; rax contient le retour de write, on le met de cote car
 				; __erno location (son pointeur) sera stocke dans rax
 	neg r8
-
 	call __errno_location wrt ..plt
 
 	mov [rax], r8 ; on stocke le code erreur dans errno [] specifie de le stocker dans l'addr stockee dans rax
 	mov rax, -1
 	ret
-
-; rdi = fd
-; rsi = buf
-; rdx  = count
