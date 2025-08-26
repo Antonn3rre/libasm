@@ -136,5 +136,18 @@ int main() {
     free(s);
   }
 
+  // BONUS
+
+  printf("\n\n--- ft_atoi_base ---\n\n");
+  printf("Small base = %d\n", ft_atoi_base("1234", "0"));
+  printf("Empty base = %d\n", ft_atoi_base("1234", ""));
+  printf("Duplicate in base = %d\n", ft_atoi_base("1234", "01234567089"));
+  printf("Minus in base = %d\n", ft_atoi_base("1234", "01234567-89"));
+  printf("Plus in base = %d\n", ft_atoi_base("1234", "0123456789+"));
+  printf("Space in base = %d\n", ft_atoi_base("1234", "01234 56789"));
+  printf("Whitespace in base = %d\n", ft_atoi_base("1234", "01234\t56789"));
+  printf("All whitespace in str = %d\n", ft_atoi_base("\t\n ", "0123456789"));
+  printf("1234 base 10 = %d\n", ft_atoi_base("  -+--12", "0123456789"));
+
   return (0);
 }

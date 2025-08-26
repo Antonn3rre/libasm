@@ -17,7 +17,7 @@ BONUS_SRCS = ft_atoi_base.s
 BONUS_OBJS = $(BONUS_SRCS:.s=.o)
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 
 all: $(NAME)
 
@@ -25,7 +25,7 @@ $(NAME): $(NAME_LIB)
 	$(CC) $(CFLAGS) main.c $(NAME_LIB) -o $(NAME)
 
 bonus: $(BONUS_NAME_LIB)
-	$(CC) $(CFLAGS) main.c $(BONUS_NAME_LIB) -o $(NAME)
+	$(CC) $(CFLAGS) main_bonus.c $(BONUS_NAME_LIB) -o $(NAME)
 	
 NASM = nasm
 
