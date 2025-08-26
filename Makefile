@@ -12,7 +12,9 @@ SRCS = ft_strcmp.s \
 
 OBJS = $(SRCS:.s=.o)
 
-BONUS_SRCS = ft_atoi_base.s
+BONUS_SRCS = ft_atoi_base.s \
+			 ft_list_size.s \
+			 ft_list_push_front.s
 
 BONUS_OBJS = $(BONUS_SRCS:.s=.o)
 

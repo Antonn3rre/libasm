@@ -4,6 +4,17 @@
 #include <string.h>
 #include <unistd.h>
 
+t_list *ft_lstnew(void *content) {
+  t_list *element;
+
+  element = malloc(sizeof(t_list));
+  if (element == NULL)
+    return (NULL);
+  element->data = content;
+  element->next = NULL;
+  return (element);
+}
+
 int main() {
 
   // ft_strlen
@@ -150,6 +161,22 @@ int main() {
   printf("1234 base 10 = %d\n", ft_atoi_base("1234", "0123456789"));
   printf("\"  -+--12\" base 10 = %d\n", ft_atoi_base("  -+--12", "0123456789"));
   printf("qweyy base qwerty = %d\n", ft_atoi_base("qweyy", "qwerty"));
+
+  printf("\n\n--- ft_list_push_front ---\n\n");
+
+  t_list *list1 = ft_lstnew((void *)1);
+
+  printf("\n\n--- ft_list_size ---\n\n");
+
+  t_list *list = NULL;
+  printf("Liste NULL = %d\n", ft_list_size(list));
+  ft_list_push_front(&list, list1);
+  printf("Liste apres push = %d\n", ft_list_size(list));
+
+  t_list *list2 = ft_lstnew((void *)1);
+  ft_list_push_front(&list, list2);
+  printf("Liste apres push = %d\n", ft_list_size(list));
+  //  t_list *list2 = ft_lstnew((void *)1);
 
   return (0);
 }
