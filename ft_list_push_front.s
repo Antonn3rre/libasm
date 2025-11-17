@@ -8,6 +8,7 @@ global ft_list_push_front
 section .text
 ft_list_push_front:
 
+	; chack arguments
 	cmp rdi, 0
 	je return
 	cmp rsi, 0

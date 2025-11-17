@@ -1,26 +1,28 @@
 global ft_atoi_base
 
 section .rodata
-    INVALID_CHARS: db "+- ", 9, 10, 11, 12 ,13, 0 ; oblige de mettre la valeur ascii, marchait pas sans
-    WHITESPACE: db " ", 9, 10, 11, 12 ,13, 0 ; oblige de mettre la valeur ascii, marchait pas sans
+    INVALID_CHARS: db "+- ", 9, 10, 11, 12 ,13, 0 ; ASCII value of whitespaces + "+-"
+    WHITESPACE: db " ", 9, 10, 11, 12 ,13, 0 ; ASCII value of whitespaces
 
 section .text
 ft_atoi_base:
 
-; rdi = str a convertir en int
-; rsi = base de rdi
+; rdi = str to convert in int
+; rsi = rdi base
 
-	mov rcx, 0 ; compteur a 0
-	call check_base
-	cmp rax, 0
+; imul : signed multiplication
+
+	mov rcx, 0 ; counter to 0
+	call check_base ; go to check_base
+	cmp rax, 0 ; if return value of check_base = 0 -> error
 	je return
 	push rax ; put aside the base size
 
 conversion:
 
-	mov rcx, 0
-	call skip_whitespace
-	cmp rax, 0
+	mov rcx, 0 ; counter to 0
+	call skip_whitespace ; go to skip_whitespace
+	cmp rax, 0 ; if return value of skip_whitespace = 0 -> error
 	je return_pop
 
 	call skip_sign
@@ -28,7 +30,7 @@ conversion:
 	je return_pop
 
 	pop rbx ; get the base size back
-	push rax ; put aside 1 ou -1 pour le signe
+	push rax ; put aside 1 or -1 for sign
 
 	call convert_str
 	; loop str, each time check if in base
@@ -37,9 +39,11 @@ conversion:
 	pop rdx
 	imul rax, rdx
 
+; return
 return:
 	ret
 
+; return after pop rbx
 return_pop:
 	pop rbx
 	ret
@@ -143,12 +147,13 @@ check_base:
 	je end_check_base
 
 	lea r8, [rel INVALID_CHARS]
-	mov rdx, 0 ; 2e compteur
+	mov rdx, 0 ; 2e counter
 	; Check for duplicate
 	loop:
 		cmp rdx, rcx
 		je invalid_loop
-		mov al, [rsi + rcx] ; Deplace dans un registre car on ne peut pas comparer 2 addr memoires
+		; Stored in registers bc we can't cmp 2 memory addr
+		mov al, [rsi + rcx]
 		cmp al, [rsi + rdx]
 		je error_base
 		

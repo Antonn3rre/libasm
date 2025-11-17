@@ -14,12 +14,12 @@ char *ft_strdup(const char *s);
 // BONUS
 
 typedef struct s_list {
-  void *data;
-  struct s_list *next;
+	void *data;
+	struct s_list *next;
 } t_list;
 
 int ft_atoi_base(char *str, char *base);
-int ft_list_size(t_list *lst);
-void ft_list_push_front(t_list **, t_list *);
+int ft_list_size(t_list *begin_list);
+void ft_list_push_front(t_list **begin_list, void *data);
 
 #endif // !LIBASM_H

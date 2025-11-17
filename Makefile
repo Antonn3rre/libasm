@@ -1,7 +1,7 @@
 NAME = libasm
 
 NAME_LIB = libasm.a
-BONUS_NAME_LIB = libasm.a
+BONUS_NAME_LIB = libasm_bonus.a
 
 SRCS = ft_strcmp.s \
 	   ft_strcpy.s \
